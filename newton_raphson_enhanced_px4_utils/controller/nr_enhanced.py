@@ -1,6 +1,6 @@
 import jax.numpy as jnp
-from nr_enhanced_v2_utils.jax_utils import jit
-from nr_enhanced_v2_utils.controller.nr_utils import(
+from newton_raphson_enhanced_px4_utils.jax_utils import jit
+from newton_raphson_enhanced_px4_utils.controller.nr_utils import(
     predict_output,
     get_tracking_error,
     get_jac_pred_x_uinv,

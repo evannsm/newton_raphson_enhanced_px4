@@ -1,4 +1,4 @@
-# nr_enhanced_v2
+# newton_raphson_enhanced_px4
 
 A ROS 2 enhanced Newton-Raphson v2 trajectory tracking controller for quadrotors. Builds on [nr_standard](https://github.com/evannsm/nr_standard) by incorporating state Jacobian terms and reference rate derivatives into the control law for improved dynamic tracking performance.
 
@@ -31,10 +31,10 @@ Compared to the standard Newton-Raphson controller:
 source install/setup.bash
 
 # Fly a figure-8 in simulation
-ros2 run nr_enhanced_v2 run_node --platform sim --trajectory fig8_horz
+ros2 run newton_raphson_enhanced_px4 run_node --platform sim --trajectory fig8_horz
 
 # Fly a helix on hardware with logging
-ros2 run nr_enhanced_v2 run_node --platform hw --trajectory helix --log
+ros2 run newton_raphson_enhanced_px4 run_node --platform hw --trajectory helix --log
 ```
 
 ### CLI Options
@@ -62,11 +62,11 @@ ros2 run nr_enhanced_v2 run_node --platform hw --trajectory helix --log
 ## Package Structure
 
 ```
-nr_enhanced_v2/
-├── nr_enhanced_v2/
+newton_raphson_enhanced_px4/
+├── newton_raphson_enhanced_px4/
 │   ├── run_node.py              # CLI entry point and argument parsing
 │   └── ros2px4_node.py          # ROS 2 node (subscriptions, publishers, control loop)
-└── nr_enhanced_v2_utils/
+└── newton_raphson_enhanced_px4_utils/
     ├── controller/
     │   ├── nr_enhanced.py       # Enhanced NR control law
     │   └── nr_utils.py          # Dynamics, Jacobians, CBF, state Jacobian
@@ -80,7 +80,7 @@ nr_enhanced_v2/
 
 ```bash
 # Inside a ROS 2 workspace src/ directory
-git clone git@github.com:evannsm/nr_enhanced_v2.git
+git clone git@github.com:evannsm/newton_raphson_enhanced_px4.git
 cd .. && colcon build --symlink-install
 ```
 
