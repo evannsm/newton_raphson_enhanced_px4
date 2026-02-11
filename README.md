@@ -1,4 +1,4 @@
-# newton_raphson_enhanced_px4
+# Newton-Raphson Flow for PX4-ROS2 Deployment with Enhanced Error Terms
 
 A ROS 2 enhanced Newton-Raphson v2 trajectory tracking controller for quadrotors. Builds on [nr_standard](https://github.com/evannsm/nr_standard) by incorporating state Jacobian terms and reference rate derivatives into the control law for improved dynamic tracking performance.
 
