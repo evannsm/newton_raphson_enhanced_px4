@@ -103,7 +103,7 @@ class OffboardControl(Node):
             depth=1
         )
 
-        # ----------------------- Subscribers --------------------------
+        # ----------------------- Publishers --------------------------
         self.offboard_control_mode_publisher = self.create_publisher(
             OffboardControlMode, '/fmu/in/offboard_control_mode', qos_profile)
         self.trajectory_setpoint_publisher = self.create_publisher(
