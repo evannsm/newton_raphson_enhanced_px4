@@ -18,11 +18,39 @@ Compared to the standard Newton-Raphson controller:
 - **PX4 integration** — publishes attitude setpoints and offboard commands via `px4_msgs`
 - **Structured logging** — optional CSV logging via ROS2Logger
 
+## Controller Profiles
+
+The package now exposes two explicit controller profiles via `--nr-profile`:
+
+| Profile | Lookahead | Predictor | Iterations | `alpha` | Integral action |
+|-----------|-----------|-----------|------------|---------|-----------------|
+| `baseline` | `1.2 s` | ZOH | `1` | `[30, 40, 40, 40]` | Disabled |
+| `workshop` | `0.8 s` | FOH | `2` | `[30, 40, 40, 40]` | Enabled with bounded anti-windup |
+
+`baseline` preserves the original enhanced control law after workspace
+integration. `workshop` adds the same structural fixes validated on the
+standard Python controller: shorter lookahead, first-order-hold prediction,
+bounded integral error injection, and two damped Newton updates per 100 Hz
+cycle.
+
+Measured Python comparison on April 1, 2026 (`fig8_horz`, headless SITL):
+
+| Profile | Position RMSE (m) | Compute time (ms) |
+|-----------|-------------------|-------------------|
+| `baseline` | `0.35749240937686216` | `0.3395175933837423` |
+| `workshop` | `0.23281274706265945` | `0.32021449162404647` |
+
+That is a `34.88%` RMSE reduction with a slight `5.69%` compute-time decrease
+on this run.
+
+For the full workspace-level writeup and exact run commands, see
+`docs/newton_raphson_workshop_profiles.qmd`.
+
 ## Control Parameters
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
-| `ALPHA` | `[30, 40, 40, 40]` | Control gains `[x, y, z, yaw]` |
+| `ALPHA` | `[30, 40, 40, 40]` | Baseline control gains `[x, y, z, yaw]` |
 | `USE_CBF` | `True` | Enable integral Control Barrier Functions |
 
 ## Usage
@@ -32,6 +60,9 @@ source install/setup.bash
 
 # Fly a figure-8 in simulation
 ros2 run newton_raphson_enhanced_px4 run_node --platform sim --trajectory fig8_horz
+
+# Fly the validated workshop profile
+ros2 run newton_raphson_enhanced_px4 run_node --platform sim --trajectory fig8_horz --nr-profile workshop --log
 
 # Fly a helix on hardware with logging
 ros2 run newton_raphson_enhanced_px4 run_node --platform hw --trajectory helix --log
@@ -50,6 +81,20 @@ ros2 run newton_raphson_enhanced_px4 run_node --platform hw --trajectory helix -
 | `--short` | Short variant (fig8_vert) |
 | `--spin` | Enable yaw rotation |
 | `--flight-period SEC` | Custom flight duration |
+| `--nr-profile {baseline,workshop}` | Select the enhanced NR profile |
+
+## Workspace Integration
+
+`newton_raphson_enhanced_px4` is now integrated into the shared
+`quad_platforms`, `quad_trajectories`, and `src/workspace_tools/fly_pipeline.py`
+infrastructure used by the rest of this workspace.
+
+That means it now:
+
+- uses the shared platform mass and force-to-throttle conversion path
+- uses the shared trajectory registry and context handling
+- writes analysis-compatible CSV logs into `src/data_analysis/log_files/`
+- can be run through the same headless SITL pipeline as the other controllers
 
 ## Dependencies
 
