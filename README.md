@@ -44,7 +44,7 @@ That is a `34.88%` RMSE reduction with a slight `5.69%` compute-time decrease
 on this run.
 
 For the full workspace-level writeup and exact run commands, see
-`docs/newton_raphson_workshop_profiles.qmd`.
+`docs/qmd/newton_raphson_workshop_profiles.qmd`.
 
 ## Control Parameters
 
