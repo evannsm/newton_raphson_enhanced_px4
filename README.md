@@ -1,6 +1,6 @@
 # Newton-Raphson Flow for PX4-ROS2 Deployment with Enhanced Error Terms
 
-A ROS 2 enhanced Newton-Raphson v2 trajectory tracking controller for quadrotors. Builds on [nr_standard](https://github.com/evannsm/nr_standard) by incorporating state Jacobian terms and reference rate derivatives into the control law for improved dynamic tracking performance.
+A ROS 2 enhanced Newton-Raphson v2 trajectory tracking controller for quadrotors. Builds on [nr_standard](https://github.com/evannsmc/nr_standard) by incorporating state Jacobian terms and reference rate derivatives into the control law for improved dynamic tracking performance.
 
 ## What's Enhanced
 
@@ -98,9 +98,9 @@ That means it now:
 
 ## Dependencies
 
-- [quad_trajectories](https://github.com/evannsm/quad_trajectories) — trajectory definitions
-- [quad_platforms](https://github.com/evannsm/quad_platforms) — platform abstraction
-- [ROS2Logger](https://github.com/evannsm/ROS2Logger) — experiment logging
+- [quad_trajectories](https://github.com/evannsmc/quad_trajectories) — trajectory definitions
+- [quad_platforms](https://github.com/evannsmc/quad_platforms) — platform abstraction
+- [ROS2Logger](https://github.com/evannsmc/ROS2Logger) — experiment logging
 - [px4_msgs](https://github.com/PX4/px4_msgs) — PX4 ROS 2 message definitions
 - JAX / jaxlib
 
@@ -125,7 +125,7 @@ newton_raphson_enhanced_px4/
 
 ```bash
 # Inside a ROS 2 workspace src/ directory
-git clone git@github.com:evannsm/newton_raphson_enhanced_px4.git
+git clone git@github.com:evannsmc/newton_raphson_enhanced_px4.git
 cd .. && colcon build --symlink-install
 ```
 
